@@ -78,14 +78,15 @@ class Solution {
 这样我们创建一个哈希表，对于每一个 x，我们首先查询哈希表中是否存在 target - x，然后将 x 插入到哈希表中，即可保证不会让 x 和自己匹配。
 
 ```js
+// 利用 Map 记录数组元素值和对应的下标
 var twoSum = function(nums, target) {
-  const len = nums.length;
-  const m = new Map();
+  let len = nums.length
+  let map = new Map()
   for (let i = 0; i < len; i++) {
-    if (m.has(target - nums[i])) {
-    	return [m.get(target - nums[i]), i];
+    if (map.has(target - nums[i])) {
+      return [map.get(target - nums[i]), i]
     }
-    m.set(nums[i], i);
+    map.set(nums[i], i)
   }
 };
 ```
