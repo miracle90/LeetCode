@@ -2,9 +2,114 @@
 
 > LeetCode算法题日常训练
 
-### 1. 两数之和 => 容易😏
+## 2. 三数之和 => 中等 😏😏
 
-<i class="icon-weibo"></i>
+给你一个包含 n 个整数的数组 `nums`，判断 `nums` 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+
+注意：答案中不可以包含重复的三元组。
+
+### 示例：
+
+```
+给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+```
+
+<details>
+<summary>----------------- 解析 -----------------</summary>
+
+### 我的作答
+
+```js
+// 时间复杂度是 O(n3)
+var threeSum = function (nums) {
+  let strArr = []
+  let arr = []
+  for (let i = 0; i < nums.length - 2; i++) {
+    let valueI = nums[i]
+    for (let j = i + 1; j < nums.length - 1; j++) {
+      let valueJ = nums[j]
+      for (let k = j + 1; k < nums.length; k++) {
+        let valueK = nums[k]
+        if (valueI + valueJ + valueK === 0) {
+          let newArr = [valueI, valueJ, valueK]
+          let newStr = newArr.sort((a, b) => a - b).join('')
+          let a = strArr.filter(item => item === newStr)
+          if (!a.length) {
+            arr.push(newArr)
+            strArr.push(newStr)
+          }
+        }
+      }
+    }
+  }
+  return arr
+};
+```
+
+> 超出时间限制~~~
+
+### 文字题解
+
+#### 方法一：排序 + 双指针
+
+#### 思路及算法
+
+* 数组排序
+* 去重
+* 左右指针
+
+
+```js
+var threeSum = function (nums) {
+  let res = []
+  let length = nums.length;
+  // 排序
+  nums.sort((a, b) => a - b)
+  // 最左值一定小于0，最右值一定大于0
+  if (nums[0] <= 0 && nums[length - 1] >= 0) {
+    for (let i = 0; i < length - 2; i++) {
+      // 最左值为正数则一定无解
+      if (nums[i] > 0) break;
+      // 去掉重复情况
+      if (i > 0 && nums[i] === nums[i - 1]) continue
+      let center = i + 1
+      let right = length - 1
+
+      while (center < right) {
+        if (nums[i] + nums[center] + nums[right] === 0) {
+          res.push([nums[i], nums[center], nums[right]])
+          // 现在要增加 center right，但是不能重复
+          // 比如: [-2, -1, -1, -1, 3, 3, 3], i = 0, center = 1, right = 6, [-2, -1, 3] 的答案加入后，需要排除重复的 -1 和 3
+          center++
+          right--
+          while (nums[center] === nums[center - 1]) center++;
+          while (nums[right] === nums[right + 1]) right--;
+        } else if (nums[i] + nums[center] + nums[right] < 0) {
+          center++
+        } else {
+          right--
+        }
+      }
+    }
+  }
+  return res
+}
+```
+
+#### 复杂度分析
+
+* 时间复杂度：O(n^2)，n 为数组长度
+* 空间复杂度：O(1)
+</details>
+
+
+## 1. 两数之和 => 容易 😏
 
 给定一个整数数组 `nums` 和一个目标值 `target`，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 
@@ -20,7 +125,7 @@
 ```
 
 <details>
-<summary>解析</summary>
+<summary>----------------- 解析 -----------------</summary>
 
 ### 我的作答
 
@@ -95,5 +200,62 @@ var twoSum = function(nums, target) {
 
 * 时间复杂度：O(N)，其中 NN 是数组中的元素数量。对于每一个元素 x，我们可以 O(1)O(1) 地寻找 target - x。
 * 空间复杂度：O(N)，其中 N 是数组中的元素数量。主要为哈希表的开销。
+
+</details>
+
+
+
+
+# 以下为模板
+
+## 1.  => 容易 😏
+
+
+
+### 示例：
+
+```
+
+```
+
+<details>
+<summary>----------------- 解析 -----------------</summary>
+
+### 我的作答
+
+```js
+
+```
+
+### 文字题解
+
+#### 方法一：
+
+#### 思路及算法
+
+
+
+```js
+
+```
+
+#### 复杂度分析
+
+* 时间复杂度：
+* 空间复杂度：
+
+#### 方法二：
+
+#### 思路及算法
+
+
+```js
+
+```
+
+#### 复杂度分析
+
+* 时间复杂度：
+* 空间复杂度：
 
 </details>
