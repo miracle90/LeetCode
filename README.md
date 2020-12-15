@@ -2,7 +2,7 @@
 
 LeetCode算法题日常训练
 
-### 1. 两数之和
+### 1. 两数之和（容易😏）
 
 <i class="fa fa-weixin"></i>
 
