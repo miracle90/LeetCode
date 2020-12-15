@@ -2,6 +2,106 @@
 
 > LeetCode算法题日常训练
 
+
+## 3. 买卖股票的最佳时机 => 简单 😏
+
+给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+
+如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。
+
+注意：你不能在买入股票前卖出股票。
+
+### 示例：
+
+```
+输入: [7,1,5,3,6,4]
+输出: 5
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+
+```
+
+<details>
+<summary>----------------- 解析 -----------------</summary>
+
+### 我的作答
+
+```js
+var maxProfit = function(prices) {
+	var res = 0
+	for (var i = 0; i < prices.length; i++) {
+		for (var j = i + 1; j < prices.length; j++) {
+			if (prices[j] - prices[i] > res) {
+				res = prices[j] - prices[i]
+			}
+		}
+	}
+	return res
+};
+```
+
+### 文字题解
+
+#### 方法一：暴力法
+
+#### 思路及算法
+
+```java
+public class Solution {
+	public int maxProfit(int prices[]) {
+		int maxprofit = 0;
+		for (int i = 0; i < prices.length - 1; i++) {
+			for (int j = i + 1; j < prices.length; j++) {
+				int profit = prices[j] - prices[i];
+				if (profit > maxprofit) {
+					maxprofit = profit;
+				}
+			}
+		}
+		return maxprofit;
+	}
+}
+```
+
+#### 复杂度分析
+
+* 时间复杂度：O(n^2)。循环运行 n * (n - 1) / 2次。
+* 空间复杂度：O(1)。只使用了常数个变量。
+
+#### 方法二：一次遍历
+
+#### 思路及算法
+
+如果我们真的在买卖股票，我们肯定会想：如果我是在历史最低点买的股票就好了！太好了，在题目中，我们只要用一个变量记录一个历史最低价格 minprice，我们就可以假设自己的股票是在那天买的。那么我们在第 i 天卖出股票能得到的利润就是 prices[i] - minprice。
+
+因此，我们只需要遍历价格数组一遍，记录历史最低点，然后在每一天考虑这么一个问题：如果我是在历史最低点买进的，那么我今天卖出能赚多少钱？当考虑完所有天数之时，我们就得到了最好的答案。
+
+* 记录一个历史最低点，初始化为第一天的价格
+* 比较每一天的利润
+
+```js
+var maxProfit = function(prices) {
+  let min = prices[0]
+  let profit = 0
+  for (let i = 0; i < prices.length; i++) {
+    if (prices[i] < min) {
+      min = prices[i]
+    } else if (prices[i] - min > profit) {
+      profit = prices[i] - min
+    }    
+  }
+  return profit
+};
+```
+
+#### 复杂度分析
+
+* 时间复杂度：O(n)，只需要遍历一次。
+* 空间复杂度：O(1)，只使用了常数个变量。
+
+</details>
+
+
 ## 2. 三数之和 => 中等 😏😏
 
 给你一个包含 n 个整数的数组 `nums`，判断 `nums` 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
@@ -109,7 +209,7 @@ var threeSum = function (nums) {
 </details>
 
 
-## 1. 两数之和 => 容易 😏
+## 1. 两数之和 => 简单 😏
 
 给定一个整数数组 `nums` 和一个目标值 `target`，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 
@@ -147,7 +247,7 @@ var twoSum = function(nums, target) {
 
 #### 思路及算法
 
-最容易想到的方法是枚举数组中的每一个数 x，寻找数组中是否存在 target - x。
+最简单想到的方法是枚举数组中的每一个数 x，寻找数组中是否存在 target - x。
 
 当我们使用遍历整个数组的方式寻找 target - x 时，需要注意到每一个位于 x 之前的元素都已经和 x 匹配过，因此不需要再进行匹配。而每一个元素不能被使用两次，所以我们只需要在 x 后面的元素中寻找 target - x。
 
@@ -208,7 +308,7 @@ var twoSum = function(nums, target) {
 
 # 以下为模板
 
-## 1.  => 容易 😏
+## 1.  => 简单 😏
 
 
 
