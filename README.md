@@ -77,19 +77,17 @@ class Solution {
 
 这样我们创建一个哈希表，对于每一个 x，我们首先查询哈希表中是否存在 target - x，然后将 x 插入到哈希表中，即可保证不会让 x 和自己匹配。
 
-```java
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> hashtable = new HashMap<Integer, Integer>();
-        for (int i = 0; i < nums.length; ++i) {
-            if (hashtable.containsKey(target - nums[i])) {
-                return new int[]{hashtable.get(target - nums[i]), i};
-            }
-            hashtable.put(nums[i], i);
-        }
-        return new int[0];
+```js
+var twoSum = function(nums, target) {
+  const len = nums.length;
+  const m = new Map();
+  for (let i = 0; i < len; i++) {
+    if (m.has(target - nums[i])) {
+    	return [m.get(target - nums[i]), i];
     }
-}
+    m.set(nums[i], i);
+  }
+};
 ```
 
 #### 复杂度分析
